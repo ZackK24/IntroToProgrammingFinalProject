@@ -1,5 +1,4 @@
-# IntroToProgrammingFinalProject1
-introToProgrammingFinalProjectP1
+# IntroToProgrammingFinalProject
 ## Project Title
 Simple overview of use/purpose.
 
