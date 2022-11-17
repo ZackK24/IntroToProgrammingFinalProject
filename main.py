@@ -1,8 +1,16 @@
 # Sources and Overview of the Project.
+'''
+This code will tell you what the projected price of a home in San Jose
+will be based on what kind of house you would like to have.
+
+Sources:
+https://www.w3schools.com/python/python_ml_linear_regression.asp
+'''
 
 
 # Importing the libraries
-
+import pandas as pd
+import seaborn as sns
 
 # Import the settings and the global variables needed
 

@@ -39,6 +39,5 @@ This project is licensed under the [NAME HERE] License - see the LICENSE.md file
 ## Acknowledgments
 Inspiration, code snippets, etc.
 
-w3Schools
-PyGame
-Automate The Boring Stuff
+* [Automate The Boring Stuff]
+* [W3Schools] (https://www.w3schools.com/python/python_ml_linear_regression.asp)
