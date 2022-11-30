@@ -17,8 +17,8 @@ import seaborn as sns
 # Import the settings and the global variables needed
 # This will create the datsheet for the machine. It will then read and analyze the excel file.
 # Then it will then show the data on a datasheet
-homesdata = pd.read_excel("HomePredictorData.slsx")
-homesdata.head()
+homesdata = pd.read_csv("HousePricePrediction.xlsx")
+print(homesdata.head(5))
 # Analyze the pdf file which tells the info of houses and the different prices that they have
 
 
