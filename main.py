@@ -13,9 +13,14 @@ from tkinter import ttk
 # Then it will then show the data on a datasheet
 # Analyze the pdf file which tells the info of houses and gives a sample of the homes.
 homesdata = pd.read_excel("HomeData.xlsx")
-print(homesdata.head())
+StartQuestion = print(input("Welcome to the Home Price Predictors! Would you like to see the predicted home price? "))
+if StartQuestion == 'Yes' or StartQuestion == 'yes':
+    print(homesdata.head())
+elif StartQuestion == 'No' or 'No':
+    print("Okay then...")
 # This will ask for the quality of the home and will then use the user input to add quality points to the house depending on the quality.
-Condition = int(input("One a scale out of ten... What is the qaultiy of the home? "))
+Condition = int(input("Now, On a scale out of ten... What is the condition of the home? "))
+PRICE = int(0)
 POINTS = 0
 if Condition < 3:
     POINTS += 1
@@ -77,3 +82,17 @@ else:
     POINTS += 6
 # Will then give the Quality score of the home after the questions.
 print("Your Home Qualtiy Score is... " + str(POINTS))
+# Will use the amount of Quality Points to then estimate how long much the hoem will cost.
+if POINTS == 0:
+    PRICE += 0
+elif POINTS > 0 and POINTS < 6:
+    PRICE += 250000
+elif POINTS > 5 and POINTS < 11:
+    PRICE += 400000
+elif POINTS > 10 and POINTS < 16:
+    PRICE += 550000
+elif POINTS > 15 and POINTS < 21:
+    PRICE += 700000
+elif POINTS > 20:
+    PRICE += 825000
+print("Based on your home's quality, your estimated price will be: " + str(PRICE) + " Dollars!")
