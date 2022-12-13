@@ -24,17 +24,27 @@ PRICE = int(0)
 POINTS = int
 # Draws the Tkinter window
 win = Tk()
+win.title("Home Price Predictor")
 win.geometry("1000x500")
 # Creating the category variables
 Price = PRICE
+def estimate():
+# This will try to see if the values put in can be into an integer. 
+   try:
+      int(my_box.get())
+      answer.config(text = "That is a number")
+   except ValueError:
+      answer.config(text = "This is not  number")
+# Creates the label variable
+my_label = Label(win, text = "Enter your home's characteristics:")
+my_label.pack(pady=20)
+my_box = Entry(win)
+my_box.pack(pady=10)
+my_button = Button(win, text = "Estimate", command = estimate)
+my_button.pack(pady=5)
+answer = Label(win, text = '')
+answer.pack(pady=10)
 frame = LabelFrame(win, width= 600, height= 400, bd=5)
-Bath = IntVar(win, value = '0')
-Bed = IntVar(win, value = '0')
-Condition = IntVar(win, value = '0')
-Pool = ttk.Entry(frame, width = 40)
-Year= IntVar(win, value = '0')
-Size = IntVar(win, value = '0')
-
 frame.pack()
 frame.pack_propagate(False)
 # Creates the entries that are on the window
@@ -47,27 +57,27 @@ Pool = ttk.Entry(frame, width = 40)
 Year = ttk.Entry(frame, width = 40)
 Size = ttk.Entry(frame, width = 40)
 # Creates the answers that use integers into those that accept integers
-Bath = Entry(win, textvariable=Bath).pack()
-Bed = Entry(win, textvariable = Bed).pack()
-Condition = Entry(win, textvariable = Condition).pack()
-Year = Entry(win, testvariable = Year).pack()
-Size = Entry(win, testvariable = Size).pack()
+#Bath = Entry(win, textvariable=Bath).pack()
+#Bed = Entry(win, textvariable = Bed).pack()
+#Condition = Entry(win, textvariable = Condition).pack()
+#Year = Entry(win, testvariable = Year).pack()
+#Size = Entry(win, testvariable = Size).pack()
 # Inserts the Entry text into the box
-Question.insert(INSERT, "Please enter your house characteristics: ")
-Bath.insert(INSERT, "Bathroom # ")
-Bed.insert(INSERT, "Bedroom # ")
-Condition.insert(INSERT, "Condition (out of 10): ")
-Pool.insert(INSERT, "Pool? ")
-Year.insert(INSERT, "When was it built? ")
-Size.insert(INSERT, "What is the size of your home? ")
+#Question.insert(INSERT, "Please enter your house characteristics: ")
+#Bath.insert(INSERT, "Bathroom # ")
+#Bed.insert(INSERT, "Bedroom # ")
+#Condition.insert(INSERT, "Condition (out of 10): ")
+#Pool.insert(INSERT, "Pool? ")
+#Year.insert(INSERT, "When was it built? ")
+#Size.insert(INSERT, "What is the size of your home? ")
 # Generates the entry onto the window
-Question.pack()
-Bath.pack()
-Bed.pack()
-Condition.pack()
-Pool.pack()
-Year.pack()
-Size.pack()
+#Question.pack()
+#Bath.pack()
+#Bed.pack()
+#Condition.pack()
+#Pool.pack()
+#Year.pack()
+#Size.pack()
 # Defines a function of when the button is clicked
 def estimation():
    PRICE = int(0)
