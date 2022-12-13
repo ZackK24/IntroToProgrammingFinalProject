@@ -8,34 +8,36 @@ user's input of the the home
 import pandas as pd
 from tkinter import *
 from tkinter import ttk
+from tkinter import Button, Entry, END
 
 # This will create the datsheet for the machine. It will then read and analyze the excel file.
 # Then it will then show the data on a datasheet
 # Analyze the pdf file which tells the info of houses and gives a sample of the homes.
 homesdata = pd.read_excel("HomeData.xlsx")
-# StartQuestion = print(input("Welcome to the Home Price Predictors! Would you like to see the predicted home price? "))
-# if StartQuestion == "Yes" or StartQuestion == "yes":
-#    print(homesdata.head())
-# elif StartQuestion == "No" or "No":
-#     print("Okay then...")
+StartQuestion = (input("Welcome to the Home Price Predictors! Would you like to see the predicted home price? "))
+if StartQuestion == "Yes" or StartQuestion == "yes":
+   print("Here are your samples: ")  
+   print(homesdata.head())
+else:
+   print("Okay then...")
 PRICE = int(0)
-POINTS = 0
+POINTS = int
 # Draws the Tkinter window
 win = Tk()
 win.geometry("1000x500")
 # Creating the category variables
-Bath = int()
-Bed = int()
-Condition = int()
-Pool = ""
-Year= int()
-Size = int()
-
 Price = PRICE
 frame = LabelFrame(win, width= 600, height= 400, bd=5)
+Bath = IntVar(win, value = '0')
+Bed = IntVar(win, value = '0')
+Condition = IntVar(win, value = '0')
+Pool = ttk.Entry(frame, width = 40)
+Year= IntVar(win, value = '0')
+Size = IntVar(win, value = '0')
+
 frame.pack()
 frame.pack_propagate(False)
-
+# Creates the entries that are on the window
 entry = ttk.Entry(frame, width = 40)
 Question = ttk.Entry(frame, width = 40)
 Bath = ttk.Entry(frame, width= 40)
@@ -44,8 +46,13 @@ Condition = ttk.Entry(frame, width = 40)
 Pool = ttk.Entry(frame, width = 40)
 Year = ttk.Entry(frame, width = 40)
 Size = ttk.Entry(frame, width = 40)
-
-
+# Creates the answers that use integers into those that accept integers
+Bath = Entry(win, textvariable=Bath).pack()
+Bed = Entry(win, textvariable = Bed).pack()
+Condition = Entry(win, textvariable = Condition).pack()
+Year = Entry(win, testvariable = Year).pack()
+Size = Entry(win, testvariable = Size).pack()
+# Inserts the Entry text into the box
 Question.insert(INSERT, "Please enter your house characteristics: ")
 Bath.insert(INSERT, "Bathroom # ")
 Bed.insert(INSERT, "Bedroom # ")
@@ -53,15 +60,18 @@ Condition.insert(INSERT, "Condition (out of 10): ")
 Pool.insert(INSERT, "Pool? ")
 Year.insert(INSERT, "When was it built? ")
 Size.insert(INSERT, "What is the size of your home? ")
-
+# Generates the entry onto the window
 Question.pack()
 Bath.pack()
 Bed.pack()
 Condition.pack()
 Pool.pack()
 Year.pack()
+Size.pack()
 # Defines a function of when the button is clicked
 def estimation():
+   PRICE = int(0)
+   POINTS = int
    if Condition < 3:
       POINTS += 1
    elif Condition > 4 and Condition < 7:
