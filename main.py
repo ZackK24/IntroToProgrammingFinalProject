@@ -23,10 +23,11 @@ win.title("Home Price Predictor")
 win.geometry("1000x500")
 PRICE = int()
 POINTS = int
-class IntEntry(Entry):
-    def get(self):
-        val = super().get()
-        return int(val)
+# Create a superclass of Entry to make Entry into an integer
+#class IntEntry(Entry):
+#   def get(self):
+#        val = super().get()
+#        return int(val)
 # Creating the settings for points and price used througout the processing of input.
 Price = PRICE
 Price = int(0)
@@ -74,6 +75,7 @@ def nextclick():
    Size.pack()
 # Adds the estimate button to give the results in page 2.
    estimatebutton.pack(pady=10)
+# Inserts the entry text
    Bath.insert(INSERT, "Bathroom # ")
    Bed.insert(INSERT, "Bedroom # ")
    Condition.insert(INSERT, "Condition (out of 10): ")
@@ -106,25 +108,30 @@ backbutton.pack()
 nextbutton.pack()
 yesbutton.pack()
 # Creates the entry boxes for each category.
-Bath = IntEntry(page2, width= 40)
-Bed = IntEntry(page2, width = 40)
-Condition = IntEntry(page2, width = 40)
-Pool = IntEntry(page2, width = 40)
-Year = IntEntry(page2, width = 40)
-Size = IntEntry(page2, width = 40)
+Bath = Entry(page2, width= 40)
+Bed = Entry(page2, width = 40)
+Condition = Entry(page2, width = 40)
+Pool = Entry(page2, width = 40)
+Year = Entry(page2, width = 40)
+Size = Entry(page2, width = 40)
 # Converts the entries into integers
-try:
-   int(Bath.get())
-   int(Bed.get())
-   int(Condition.get())
-   int(Year.get())
-   int(Size.get())
-except ValueError:
-   print("Invalid answer...")
+#try:
+#   int(Bath.get())
+#   int(Bed.get())
+#   int(Condition.get())
+#   int(Year.get())
+#   int(Size.get())
+#except ValueError:
+#   print("Invalid answer...")
 # Activates when the function when the user clicks "estimate!" on page 2.
 def estimation():
    PRICE = int()
    POINTS = int()
+  # int(Bath)
+  # int(Bed)
+  # int(Condition)
+  # int(Year)
+  # int(Size)
 # Checks the value placed into the pool entry and adds the corresponding points.
    if Pool == "Yes" or Pool == "yes":
       POINTS += 2
