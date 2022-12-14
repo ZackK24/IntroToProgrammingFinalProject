@@ -23,6 +23,10 @@ win.title("Home Price Predictor")
 win.geometry("1000x500")
 PRICE = int()
 POINTS = int
+class IntEntry(Entry):
+    def get(self):
+        val = super().get()
+        return int(val)
 # Creating the settings for points and price used througout the processing of input.
 Price = PRICE
 Price = int(0)
@@ -42,7 +46,7 @@ page2.pack(pady=20)
 page1label = Label(page1, text = "Welcome to Home Price Predictors! Would You like to see some sample data?") 
 page1label.pack()
 page2label = Label(page2, text = "Enter your home's characteristics:")
-tableentry = Label(page1, text = homesdata.head(5))
+tableentry = Label(page1, text = homesdata.head())
 # Groups all the pages together into a tuple and also sets up a page count to keep track of what page the user is on.
 pages = [page1, page2]
 count = 0
@@ -102,25 +106,23 @@ backbutton.pack()
 nextbutton.pack()
 yesbutton.pack()
 # Creates the entry boxes for each category.
-Bath = Entry(page2, width= 40)
-Bed = Entry(page2, width = 40)
-Condition = Entry(page2, width = 40)
-Pool = Entry(page2, width = 40)
-Year = Entry(page2, width = 40)
-Size = Entry(page2, width = 40)
-
-
+Bath = IntEntry(page2, width= 40)
+Bed = IntEntry(page2, width = 40)
+Condition = IntEntry(page2, width = 40)
+Pool = IntEntry(page2, width = 40)
+Year = IntEntry(page2, width = 40)
+Size = IntEntry(page2, width = 40)
+# Converts the entries into integers
+try:
+   int(Bath.get())
+   int(Bed.get())
+   int(Condition.get())
+   int(Year.get())
+   int(Size.get())
+except ValueError:
+   print("Invalid answer...")
 # Activates when the function when the user clicks "estimate!" on page 2.
 def estimation():
-# Converts the entries into integers
-   try:
-      int(Bath.get())
-      int(Bed.get())
-      int(Condition.get())
-      int(Year.get())
-      int(Size.get())
-   except ValueError:
-      print("Invalid answer...")
    PRICE = int()
    POINTS = int()
 # Checks the value placed into the pool entry and adds the corresponding points.
