@@ -2,6 +2,7 @@
 # Sources and Overview of the Project.
 # https://www.youtube.com/watch?v=IbpInH4q4Sg&list=LL&index=1&t=390s
 # Course Code Files Day 30 Exercise
+# https://www.youtube.com/watch?v=wFyzmZVKPAw
 
 '''
 This code will tell you what the projected price of a home would be based of the 
@@ -15,17 +16,12 @@ from tkinter import Entry
 # Draws the Tkinter window
 # Analyze the pdf file which tells the info of houses and gives a sample of the homes.
 homesdata = pd.read_excel("HomeData.xlsx")
-StartQuestion = (input("Welcome to the Home Price Predictors! Would you like to see the predicted home price? "))
-if StartQuestion == "Yes" or StartQuestion == "yes":
-   print("Here are your samples: ")  
-   print(homesdata.head())
-else:
-   print("Okay then...")
+print(homesdata.head())
+
 # Draws the Tkinter window
 win = Tk()
 win.title("Home Price Predictor")
 win.geometry("1000x500")
-frame = LabelFrame(win, width= 600, height= 400, bd=5)
 PRICE = int()
 POINTS = int
 # Creating the category variables
@@ -33,36 +29,74 @@ Price = PRICE
 Price = int(0)
 Points = POINTS
 Points = int(0)
-# This will try to see if the values put in can be into an integer. 
-label = Label(win, text = "Welcome to home price Predictors!") 
-label1 = Label(win, text = "Enter your home's characteristics:")
-label.pack()
-label1.pack()
 # Creates the label variable
-frame = LabelFrame(win, width= 600, height= 400, bd=5)
+frame = Frame(win)
+frame1 = Frame(win)
 frame.pack()
-frame.pack_propagate(False)
-# Creates the entries that are on the window
-Bath = Entry(frame, width= 40)
-Bed = Entry(frame, width = 40)
-Condition = Entry(frame, width = 40)
-Pool = Entry(frame, width = 40)
-Year = Entry(frame, width = 40)
-Size = Entry(frame, width = 40)
-# Inserts the Entry text into the box
-Bath.insert(INSERT, "Bathroom # ")
-Bed.insert(INSERT, "Bedroom # ")
-Condition.insert(INSERT, "Condition (out of 10): ")
-Pool.insert(INSERT, "Pool? ")
-Year.insert(INSERT, "When was it built? ")
-Size.insert(INSERT, "What is the size of your home? ")
-# Generates the entry onto the window
-Bath.pack()
-Bed.pack()
-Condition.pack()
-Pool.pack()
-Year.pack()
-Size.pack()
+frame1.pack()
+page1 = Frame(frame)
+page1.pack(pady=20)
+page2 = Frame(frame1)
+page2.pack(pady=20)
+page1label = Label(page1, text = "Welcome to Home Price Predictors! Would You like to see some sample data?") 
+page1label.pack()
+page2label = Label(page2, text = "Enter your home's characteristics:")
+tableentry = Label(page1, text = homesdata.head(5))
+# Creates the entries that are on page 2
+pages = [page1, page2]
+count = 0
+def nextclick():
+   global count
+
+   if not count > len(pages):
+   
+      for p in pages:
+         p.pack_forget()
+      count += 1
+      page = pages[count]
+      page.pack(pady = 20)
+   page2label.pack()
+   Bath.pack()
+   Bed.pack()
+   Condition.pack()
+   Pool.pack()
+   Year.pack()
+   Size.pack()
+   estimatebutton.pack(pady=10)
+   Bath.insert(INSERT, "Bathroom # ")
+   Bed.insert(INSERT, "Bedroom # ")
+   Condition.insert(INSERT, "Condition (out of 10): ")
+   Pool.insert(INSERT, "Pool? ")
+   Year.insert(INSERT, "When was it built? ")
+   Size.insert(INSERT, "What is the size of your home? ")
+def backclick():
+   global count
+
+   if not count == 0:
+   
+      for p in pages:
+         p.pack_forget()
+      count -= 1
+      page = pages[count]
+      page.pack(pady = 20)
+def yesclick():
+   tableentry.pack()
+
+# Creates the buttons
+yesbutton = Button(page1, text = "Yes!", command = yesclick)
+backbutton = Button(win, text = "Back", command = backclick)
+nextbutton = Button(win, text = "Next", command = nextclick)
+backbutton.pack()
+nextbutton.pack()
+yesbutton.pack()
+Bath = Entry(page2, width= 40)
+Bed = Entry(page2, width = 40)
+Condition = Entry(page2, width = 40)
+Pool = Entry(page2, width = 40)
+Year = Entry(page2, width = 40)
+Size = Entry(page2, width = 40)
+
+
 # Defines the function of when the button is clicked
 def estimation():
 # Converts the entries into integers
@@ -72,8 +106,8 @@ def estimation():
       int(Condition.get())
       int(Year.get())
       int(Size.get())
-   except:
-      ValueError
+   except ValueError:
+      print("Invalid answer...")
    PRICE = int()
    POINTS = int()
    if Pool == "Yes" or Pool == "yes":
@@ -153,7 +187,7 @@ def estimation():
    label3= Label(frame, text= Price, font= ('Times New Roman', 14, 'italic'))
    label2.pack(pady = 30)
    label3.pack(pady=30)
-ttk.Button(win, text= "Estimate!", command = estimation).pack(pady=20)
+estimatebutton = ttk.Button(page2, text= "Estimate!", command = estimation)
 win.mainloop()
 
 
