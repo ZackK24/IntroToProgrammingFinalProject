@@ -12,7 +12,7 @@ user's input of the the home
 import pandas as pd
 from tkinter import *
 from tkinter import ttk
-from tkinter import Entry
+from tkinter import simpledialog
 # Analyze the pdf file which has the info of houses and gives a sample of the homes.
 homesdata = pd.read_excel("HomeData.xlsx")
 print(homesdata.head())
@@ -23,11 +23,7 @@ win.title("Home Price Predictor")
 win.geometry("1000x500")
 PRICE = int()
 POINTS = int
-# Create a superclass of Entry to make Entry into an integer
-'''class IntEntry(Entry):
-   def get(self):
-        val = super().get()
-        return int(val)'''
+
 # Creating the settings for points and price used througout the processing of input.
 Price = PRICE
 Price = int(0)
@@ -46,7 +42,7 @@ page2.pack(pady=20)
 # The lables used to tell what kind of page the user is in
 page1label = Label(page1, text = "Welcome to Home Price Predictors! Would You like to see some sample data?") 
 page1label.pack()
-page2label = Label(page2, text = "Enter your home's characteristics:")
+page2label = Label(page2, text = "Please enter the characteristics on the given separate windnow. Then, click estmiate!")
 tableentry = Label(page1, text = homesdata.head())
 # Groups all the pages together into a tuple and also sets up a page count to keep track of what page the user is on.
 pages = [page1, page2]
@@ -64,8 +60,18 @@ def nextclick():
       page = pages[count]
 # Loads in the next page
       page.pack(pady = 20)
+# Loads in the label
+      page2label.pack()
 # Once the user clicks next, completely new entries and labels replace page 1.
 # Also adds the entires and texts in page 2.
+   estimatebutton.pack(pady=10)
+   global Bed
+   global Bath
+   global Condition
+   global Pool
+   global Year
+   global Size
+'''
    page2label.pack()
    Bath.pack()
    Bed.pack()
@@ -73,15 +79,17 @@ def nextclick():
    Pool.pack()
    Year.pack()
    Size.pack()
+   '''
 # Adds the estimate button to give the results in page 2.
-   estimatebutton.pack(pady=10)
 # Inserts the entry text
+'''
    Bath.insert(INSERT, "Bathroom # ")
    Bed.insert(INSERT, "Bedroom # ")
    Condition.insert(INSERT, "Condition (out of 10): ")
    Pool.insert(INSERT, "Pool? ")
    Year.insert(INSERT, "When was it built? ")
    Size.insert(INSERT, "What is the size of your home? ")
+   '''
 # When the user clicks back:
 def backclick():
    global count
@@ -107,31 +115,34 @@ nextbutton = Button(win, text = "Next", command = nextclick)
 backbutton.pack()
 nextbutton.pack()
 yesbutton.pack()
+
+Bed = simpledialog.askinteger(page2, "Bedroom #:")
+Bath = simpledialog.askinteger(page2, "Bathroom #:")
+Condition = simpledialog.askinteger(page2, "Condition out of 10: ")
+Year = simpledialog.askinteger(page2, "Year Built:" )
+Size = simpledialog.askinteger(page2, "Size")
+Pool = simpledialog.askstring(page2, "Pool?")
 # Creates the entry boxes for each category.
+'''
 Bath = Entry(page2, width= 40)
 Bed = Entry(page2, width = 40)
 Condition = Entry(page2, width = 40)
 Pool = Entry(page2, width = 40)
 Year = Entry(page2, width = 40)
 Size = Entry(page2, width = 40)
+'''
 # Converts the entries into integers
-'''try:
-      int(Bath.get())
-      int(Bed.get())
-      int(Condition.get())
-      int(Year.get())
-      int(Size.get())
-   except ValueError:
-      print("Invalid answer...")'''
+'''
+print(type(Bath))
+print(type(Bed))
+print(type(Condition))
+print(type(Year))
+print(type(Size))
+'''
 # Activates when the function when the user clicks "estimate!" on page 2.
 def estimation():
    PRICE = int()
    POINTS = int()
-  # int(Bath)
-  # int(Bed)
-  # int(Condition)
-  # int(Year)
-  # int(Size)
 # Checks the value placed into the pool entry and adds the corresponding points.
    if Pool == "Yes" or Pool == "yes":
       POINTS += 2
@@ -204,11 +215,11 @@ def estimation():
 # Tells the price of the home after the user clicks estimate.
    Price = ("Your Home Price is:" + str(PRICE) + " dollars!")
 # The labels that are apart of the Points and Price value.
-   label2 = Label(frame, text = Points, font = ('Times New Roman', 14, 'italic'))
-   label3= Label(frame, text= Price, font= ('Times New Roman', 14, 'italic'))
+   label2 = Label(page2, text = Points, font = ('Times New Roman', 14, 'italic'))
+   label3= Label(page2, text= Price, font= ('Times New Roman', 14, 'italic'))
 # Creates the labels text.
-   label2.pack(pady = 30)
-   label3.pack(pady = 30)
+   label2.pack(pady = 10)
+   label3.pack(pady = 10)
 # Creates the button used on page 2 for submitting the inputs.
 estimatebutton = ttk.Button(page2, text= "Estimate!", command = estimation)
 win.mainloop()
