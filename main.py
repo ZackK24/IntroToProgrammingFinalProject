@@ -8,7 +8,11 @@
 This code will tell you what the projected price of a home would be based of the 
 user's input of the the home
 '''
-# Pandas is a library which reads and analyzes excel spreadsheets
+'''
+Pandas is a library which reads and analyzes excel spreadsheets
+simplediaglog is able to process the user input through a small tkinter window and can take in integers, 
+floats, and strings. It also has a built-in error detection when the user doesn't give the right datatype.
+'''
 import pandas as pd
 from tkinter import *
 from tkinter import ttk
@@ -62,34 +66,8 @@ def nextclick():
       page.pack(pady = 20)
 # Loads in the label
       page2label.pack()
-# Once the user clicks next, completely new entries and labels replace page 1.
-# Also adds the entires and texts in page 2.
+# Adds the estimate button onto page 2
    estimatebutton.pack(pady=10)
-   global Bed
-   global Bath
-   global Condition
-   global Pool
-   global Year
-   global Size
-'''
-   page2label.pack()
-   Bath.pack()
-   Bed.pack()
-   Condition.pack()
-   Pool.pack()
-   Year.pack()
-   Size.pack()
-   '''
-# Adds the estimate button to give the results in page 2.
-# Inserts the entry text
-'''
-   Bath.insert(INSERT, "Bathroom # ")
-   Bed.insert(INSERT, "Bedroom # ")
-   Condition.insert(INSERT, "Condition (out of 10): ")
-   Pool.insert(INSERT, "Pool? ")
-   Year.insert(INSERT, "When was it built? ")
-   Size.insert(INSERT, "What is the size of your home? ")
-   '''
 # When the user clicks back:
 def backclick():
    global count
@@ -115,30 +93,13 @@ nextbutton = Button(win, text = "Next", command = nextclick)
 backbutton.pack()
 nextbutton.pack()
 yesbutton.pack()
-
+# Creates the separate windows which can accept the integer and String values from the user.
 Bed = simpledialog.askinteger(page2, "Bedroom #:")
 Bath = simpledialog.askinteger(page2, "Bathroom #:")
 Condition = simpledialog.askinteger(page2, "Condition out of 10: ")
 Year = simpledialog.askinteger(page2, "Year Built:" )
 Size = simpledialog.askinteger(page2, "Size")
 Pool = simpledialog.askstring(page2, "Pool?")
-# Creates the entry boxes for each category.
-'''
-Bath = Entry(page2, width= 40)
-Bed = Entry(page2, width = 40)
-Condition = Entry(page2, width = 40)
-Pool = Entry(page2, width = 40)
-Year = Entry(page2, width = 40)
-Size = Entry(page2, width = 40)
-'''
-# Converts the entries into integers
-'''
-print(type(Bath))
-print(type(Bed))
-print(type(Condition))
-print(type(Year))
-print(type(Size))
-'''
 # Activates when the function when the user clicks "estimate!" on page 2.
 def estimation():
    PRICE = int()
