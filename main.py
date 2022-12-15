@@ -1,7 +1,7 @@
 # Zack K
 # Sources:
-# How to Validate an Entry Widget as an Integer: https://www.youtube.com/watch?v=IbpInH4q4Sg&list=LL&index=1&t=390s
-# Course Code Files: Day 30 Exercise
+# Tkinter simpledialog to collect user input in integer or string: https://www.youtube.com/watch?v=Tbdg3J_YbII
+# Course Code Files: Day 30 Exercise (Used as a template ot setup tkinter window)
 # Switch Multiple Pages in Tkinter: https://www.youtube.com/watch?v=wFyzmZVKPAw
 
 '''
@@ -10,6 +10,7 @@ user's input of the the home
 '''
 '''
 Pandas is a library which reads and analyzes excel spreadsheets
+openpyxl will open the excel file which can be displayed on the window.
 simplediaglog is able to process the user input through a small tkinter window and can take in integers, 
 floats, and strings. It also has a built-in error detection when the user doesn't give the right datatype.
 '''
@@ -17,7 +18,17 @@ import pandas as pd
 from tkinter import *
 from tkinter import ttk
 from tkinter import simpledialog
+from openpyxl import load_workbook
 # Analyze the pdf file which has the info of houses and gives a sample of the homes.
+dataset = load_workbook(filename = "D:\HomeData.xlsx", read_only = True)
+ws = dataset['HomeData']
+layer1 = ws.iter_rows(min_row = 1, max_row = 1, max_col = 5, values_only = True)
+recordset = ws.iter_rows(min_row = 1, max_row = 5, max_col = 5, values_only = True)
+# The header of the dataset
+layer1 = [r for r in layer1]
+recordset = [r for r in dataset]
+dataset.close()
+print(layer1)
 homesdata = pd.read_excel("HomeData.xlsx")
 print(homesdata.head())
 
@@ -112,10 +123,12 @@ def estimation():
 # Checks the condition value and assigns points to how well conditioned the house is.
    if Condition < 3:
       POINTS += 1
-   elif Condition > 4 and Condition < 7:
+   elif Condition > 2 and Condition < 6:
       POINTS += 2
-   elif Condition > 7:
+   elif Condition > 5 and Condition < 10:
       POINTS += 3
+   elif Condition > 10:
+      POINTS += 4
 # Will ask for how many bathrooms there are and will use the input to assign how many qualtiy points their home gets.
    if Bath == 0:
       POINTS += 0
@@ -123,17 +136,29 @@ def estimation():
       POINTS += 1
    elif Bath > 1 and Bath < 5:
       POINTS += 2
-   elif Bath > 4:
+   elif Bath > 4 and Bath < 8:
       POINTS += 3
+   elif Bath > 6 and Bath < 10:
+      POINTS += 4
+   elif Bath > 9 and Bath < 14:
+      POINTS += 5
+   elif Bath > 13:
+      POINTS += 6
 # Processes the the user input of how many bedrooms and gives the neccessary points. 
    if Bed == 0:
       POINTS += 0
    elif Bed > 0 and Bed < 3:
       POINTS += 1
-   elif Bed > 2 and Bed < 6:
+   elif Bed > 2 and Bed < 5:
       POINTS += 2
-   elif Bed > 5:
+   elif Bed > 4 and Bed < 8:
       POINTS += 3
+   elif Bed > 7 and Bed < 10:
+      POINTS += 4
+   elif Bed > 9 and Bed < 14:
+      POINTS += 5
+   elif Bed > 13:
+      POINTS += 6
 # Takes input from the entry which it gives points to the house based on how old the home is.
    if Year < 1950:
       POINTS += 0
@@ -143,8 +168,12 @@ def estimation():
       POINTS += 2
    elif Year > 1979 and Year < 1995:
       POINTS += 3
-   elif Year > 1994:
+   elif Year > 1994 and Year < 2005:
       POINTS += 4
+   elif Year > 2004 and Year < 2015:
+      POINTS +=5
+   elif Year > 2014:
+      POINTS += 6
 # User inputs the size of the home and points are added based off user input.
    if Size < 1500:
       POINTS += 1
@@ -156,21 +185,35 @@ def estimation():
       POINTS += 4
    elif Size > 3499 and Size < 4000:
       POINTS += 5
-   else: 
+   elif Size > 3999 and Size < 4500: 
       POINTS += 6
+   elif Size > 4499 and Size < 5000:
+      POINTS += 7
+   elif Size > 4999:
+      POINTS += 8
 # Will use the amount of Quality Points to then estimate how long much the hoem will cost.
    if POINTS == 0:
       PRICE += 0
-   elif POINTS > 0 and POINTS < 6:
+   elif POINTS > 0 and POINTS < 4:
       PRICE += 250000
-   elif POINTS > 5 and POINTS < 11:
+   elif POINTS > 3 and POINTS < 7:
       PRICE += 400000
-   elif POINTS > 10 and POINTS < 16:
+   elif POINTS > 6 and POINTS < 10:
       PRICE += 550000
-   elif POINTS > 15 and POINTS < 21:
+   elif POINTS > 9 and POINTS < 13:
       PRICE += 700000
-   elif POINTS > 20:
+   elif POINTS > 12 and POINTS < 16:
       PRICE += 825000
+   elif POINTS > 15 and POINTS < 19:
+      PRICE += 900000
+   elif POINTS > 18 and POINTS < 22:
+      PRICE += 1050000
+   elif POINTS > 21 and POINTS < 25:
+      PRICE += 1175000
+   elif POINTS > 24 and POINTS < 28:
+      PRICE += 1500000
+   elif POINTS > 27:
+      PRICE += 1750000
 # Tells the quality score of the home by adding the points together.
    Points = ("Your Home Quality Score is: " + str(POINTS) + " Points!")
 # Tells the price of the home after the user clicks estimate.
