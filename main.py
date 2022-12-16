@@ -18,17 +18,10 @@ import pandas as pd
 from tkinter import *
 from tkinter import ttk
 from tkinter import simpledialog
-from openpyxl import load_workbook
+from tkinter import filedialog, messagebox
+
+
 # Analyze the pdf file which has the info of houses and gives a sample of the homes.
-dataset = load_workbook(filename = "D:\HomeData.xlsx", read_only = True)
-ws = dataset['HomeData']
-layer1 = ws.iter_rows(min_row = 1, max_row = 1, max_col = 5, values_only = True)
-recordset = ws.iter_rows(min_row = 1, max_row = 5, max_col = 5, values_only = True)
-# The header of the dataset
-layer1 = [r for r in layer1]
-recordset = [r for r in dataset]
-dataset.close()
-print(layer1)
 homesdata = pd.read_excel("HomeData.xlsx")
 print(homesdata.head())
 
@@ -38,7 +31,6 @@ win.title("Home Price Predictor")
 win.geometry("1000x500")
 PRICE = int()
 POINTS = int
-
 # Creating the settings for points and price used througout the processing of input.
 Price = PRICE
 Price = int(0)
@@ -50,15 +42,17 @@ frame1 = Frame(win)
 frame.pack()
 frame1.pack()
 # Creates the pages of the program.
-page1 = Frame(frame)
+page1 = Frame(frame, width = 1000)
 page1.pack(pady=20)
 page2 = Frame(frame1)
 page2.pack(pady=20)
+datalabel = Label(page1, text = homesdata.loc[0:4])
 # The lables used to tell what kind of page the user is in
 page1label = Label(page1, text = "Welcome to Home Price Predictors! Would You like to see some sample data?") 
 page1label.pack()
 page2label = Label(page2, text = "Please enter the characteristics on the given separate windnow. Then, click estmiate!")
-tableentry = Label(page1, text = homesdata.head())
+#tableentry = Label(page1, text = homesdata.loc[0:4])
+
 # Groups all the pages together into a tuple and also sets up a page count to keep track of what page the user is on.
 pages = [page1, page2]
 count = 0
@@ -93,8 +87,31 @@ def backclick():
       page.pack(pady = 20)
 # Will activate when the user clicks yes on page 1.
 def yesclick():
+   win1 = Tk()
+   win1.title("Dataset")
+   win1.geometry("1000x400")
+   global homesdata
+   global datafile
+   global treeview
+   treeview = ttk.Treeview(win1)
+   treeview.pack(pady = 30)
+   datafile = filedialog.askopenfilename(title = "Open File",
+      filetype= (("Excel Files", ".xlsx"), ("All Files", "*.*")))
+   try:
+      homesdata = pd.read_excel(datafile)
+   except Exception as e:
+      messagebox.showerror("Wrong File!", {e})
+   treeview.delete(*treeview.get_children())
+   treeview['column'] = list(homesdata.columns)
+   treeview['show'] = 'headings'
+   for col in treeview['column']:
+      treeview.heading(col, text = col)
+   homesdata_rows = homesdata.to_numpy().tolist()
+   for row in homesdata_rows:
+      treeview.insert("", "end", values = row)
+   
 # Once they click yes, they then see the sample data of homesdata.
-   tableentry.pack()
+  
 
 # Creates the buttons for all the pages.
 yesbutton = Button(page1, text = "Yes!", command = yesclick)
