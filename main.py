@@ -58,11 +58,10 @@ page2label = Label(page2, text = "Please enter the characteristics on the given 
 pages = [page1, page2]
 count = 0
 def nextclick():
-
    global count
-
+# Will check to make sure the user isn't already on page 2 yet.
    if not count > len(pages):
-   
+# Changes what was on page 1 into what is on page 2
       for p in pages:
          p.pack_forget()
 # Adds when the user clicks on the next page.
@@ -124,12 +123,14 @@ backbutton.pack()
 nextbutton.pack()
 yesbutton.pack()
 # Creates the separate windows which can accept the integer and String values from the user.
+
 Bed = simpledialog.askinteger(page2, "Bedroom #:")
 Bath = simpledialog.askinteger(page2, "Bathroom #:")
 Condition = simpledialog.askinteger(page2, "Condition out of 10: ")
 Year = simpledialog.askinteger(page2, "Year Built:" )
 Size = simpledialog.askinteger(page2, "Size")
 Pool = simpledialog.askstring(page2, "Pool?")
+
 # Activates when the function when the user clicks "estimate!" on page 2.
 def estimation():
    PRICE = int()
