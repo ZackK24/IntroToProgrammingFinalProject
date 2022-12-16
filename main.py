@@ -3,6 +3,7 @@
 # Tkinter simpledialog to collect user input in integer or string: https://www.youtube.com/watch?v=Tbdg3J_YbII
 # Course Code Files: Day 30 Exercise (Used as a template ot setup tkinter window)
 # Switch Multiple Pages in Tkinter: https://www.youtube.com/watch?v=wFyzmZVKPAw
+# Adding separate sample dataset: https://www.youtube.com/watch?v=Ooo3q7MuKMA&t=932s
 
 '''
 This code will tell you what the projected price of a home would be based of the 
@@ -85,23 +86,26 @@ def backclick():
       count -= 1
       page = pages[count]
       page.pack(pady = 20)
-# Will activate when the user clicks yes on page 1.
+# Will activate when the user clicks yes on page 1. It will create a separate window to show the sample.
 def yesclick():
+# Creates the separate window for the dataset
    win1 = Tk()
    win1.title("Dataset")
    win1.geometry("1000x400")
+# Allows the variables to be used in to create the dataset in the window
    global homesdata
-   global datafile
    global treeview
+# Creates the treeview/dataset element.
    treeview = ttk.Treeview(win1)
    treeview.pack(pady = 30)
-   datafile = filedialog.askopenfilename(title = "Open File",
-      filetype= (("Excel Files", ".xlsx"), ("All Files", "*.*")))
+# It will see if the data file is downloaded or not to then use
    try:
-      homesdata = pd.read_excel(datafile)
+      homesdata = pd.read_excel("HomeData.xlsx")
    except Exception as e:
-      messagebox.showerror("Wrong File!", {e})
+      messagebox.showerror("File Not there... Please Download the dataset", {e})
+# Makes sure that there is nothing else in the dataset.
    treeview.delete(*treeview.get_children())
+   # This will create the contents of the dataset.
    treeview['column'] = list(homesdata.columns)
    treeview['show'] = 'headings'
    for col in treeview['column']:
@@ -109,8 +113,6 @@ def yesclick():
    homesdata_rows = homesdata.to_numpy().tolist()
    for row in homesdata_rows:
       treeview.insert("", "end", values = row)
-   
-# Once they click yes, they then see the sample data of homesdata.
   
 
 # Creates the buttons for all the pages.
