@@ -19,7 +19,7 @@ import pandas as pd
 from tkinter import *
 from tkinter import ttk
 from tkinter import simpledialog
-from tkinter import filedialog, messagebox
+from tkinter import messagebox
 
 
 # Analyze the pdf file which has the info of houses and gives a sample of the homes.
