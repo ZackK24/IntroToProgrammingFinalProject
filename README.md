@@ -8,7 +8,7 @@ It will take in their inputs based on multiple factors (size, # of bedrooms, etc
 ## Getting Started
 ### Dependencies
 You should have tkinter and pandas installed for the code to function.
-Also, please download the 'HomeData.xlsx' file so you can see your sample data.
+Also, please download the 'HomeData.xlsx' file and have it opened so you can see your sample data.
 ### Installing
 Please make sure to doqnload the libraries and the dataset.
 ### Executing program
